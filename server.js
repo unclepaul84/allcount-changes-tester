@@ -8,6 +8,7 @@ const adalmodule =  require("./adal-auth-module/adal-auth-module.js");
 
 adalmodule.installModule(injection);
 
+
 var server = injection.inject('allcountServerStartup');
 
 server.startup(function (errors) {
