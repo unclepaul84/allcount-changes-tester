@@ -4,9 +4,7 @@ module.exports = function () {
 
     var adalAuthMethod = function (from, req, resp) {
 
-        var r = req;
-
-        return "http://yahoo.com"; //TODO:  call for adal redirect
+        return "/oauth/azureAD"; //point to our adal route
     }
 
     adalAuthMethod.label = 'Azure AD';

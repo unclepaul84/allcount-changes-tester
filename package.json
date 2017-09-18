@@ -2,16 +2,17 @@
   "name": "allcount-changes-tester",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@unclepaul/allcountjs": "^1.24.2"
+    "@unclepaul/allcountjs": "^1.24.2",
+    "adal-node": "^0.1.22"
   },
   "engines": {
     "node": "^6.11.0"
-    }
+  }
 }

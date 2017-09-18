@@ -1,9 +1,15 @@
 'use strict'
 
 exports.installModule = function (injection) {
-    injection.bindMultiple('loginMethods', ['adal-login-method']); //inject module into login methods collection
+       
+    injection.bindMultiple('loginMethods', ['adal-login-method']); //inject module into login methods collection, this makes the alternative login button appear
     injection.bindFactory('adal-login-method', require('./adal-auth-method.js')); //inject module
-
+  
+    injection.bindMultiple('compileServices', ['adalintergrationprovider']); //gives this service access to app manifest file 
+    injection.bindFactory('adalintergrationprovider', require('./adal-intergration-provider.js')); //inject module
+   
+    injection.bindMultiple('appConfigurators', ['adal-oauth-route']); //allows service to edit routes
+    injection.bindFactory('adal-oauth-route', require('./adal-oauth-route.js'));
 };
 
 
