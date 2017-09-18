@@ -65,15 +65,12 @@ module.exports = function (appAccessRouter, integrationService, adalintergration
                     securityService.findUser(userName).then((u) => {
 
                         if (u) {
-
                             loginUser(u);
-
                         } else {
                             //create user
                             ///TODO: check if user is allowed to this site from app config (ie only users of certain AAD groups are allowed to join)
                             ///TODO: map AAD group memberships to roles
                             securityService.createUser(userName, response.accessToken,[]).then(user => {
-
                                 loginUser(user);
                             });
                         }
