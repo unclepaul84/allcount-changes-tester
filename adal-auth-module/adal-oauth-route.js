@@ -42,6 +42,9 @@ module.exports = function (appAccessRouter, integrationService, adalintergration
             authenticationContext.acquireTokenWithAuthorizationCode(req.query.code, redirectUri, resource, adalintergrationprovider.adalAppId, adalintergrationprovider.adalAppSecret, function (err, response) {
 
                 if (err) {
+
+                    console.warn(err);
+
                     throw err;
                 }
 
