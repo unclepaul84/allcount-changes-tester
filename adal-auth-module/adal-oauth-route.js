@@ -35,8 +35,7 @@ module.exports = function (appAccessRouter, integrationService, adalintergration
 
         appAccessRouter.get('/oauth/azureAD/callback', function (req, res, next) {
 
-            const integrationId = req.query.state;
-
+            console.warn('/oauth/azureAD/callback', req.query);
 
             var authenticationContext = new AuthenticationContext(authorityUrl);
 
