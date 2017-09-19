@@ -1,7 +1,9 @@
 'use strict'
-
+// "implements"  allcount js module "interface"
 exports.installModule = function (injection) {
-       
+    
+    //register our components with DI
+
     injection.bindMultiple('loginMethods', ['adal-login-method']); //inject module into login methods collection, this makes the alternative login button appear
     injection.bindFactory('adal-login-method', require('./adal-auth-method.js')); //inject module
   
