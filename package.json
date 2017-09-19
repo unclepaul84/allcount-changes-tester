@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@unclepaul/allcountjs": "1.25.0",
+    "@unclepaul/allcountjs": "1.26.0",
     "adal-node": "^0.1.22"
   },
   "engines": {

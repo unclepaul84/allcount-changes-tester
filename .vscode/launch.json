@@ -1,5 +1,11 @@
 {
         "version": "0.2.0",
+        "compounds": [
+            {
+                "name": "Launch & Debug",
+                "configurations": [ "Launch Program", "Launch Chrome" ]
+            }
+        ],
         "configurations": [
         {
             "type": "node",
@@ -8,6 +14,13 @@
             "program": "${workspaceRoot}/server.js",
             "env":{"NODE_ENV":"production"}
         }
-         
+        ,
+        {
+            "name": "Launch Chrome",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:9080/",
+            "webRoot": "${workspaceRoot}"
+        }
         ]
     }
