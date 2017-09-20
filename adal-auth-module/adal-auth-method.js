@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function () {
+module.exports = function (adalintergrationprovider) {
 
     var adalAuthMethod = function (from, req, resp) {
 
@@ -8,6 +8,14 @@ module.exports = function () {
     }
 
     adalAuthMethod.label = 'Azure AD';
+
+    adalAuthMethod.compile = function () {
+
+        if (adalintergrationprovider.adalCfg && adalintergrationprovider.adalCfg.isDefaultLoginMethod) {
+            adalAuthMethod.forceRedirect = true;
+        }
+
+    }
 
     return adalAuthMethod;
 }
