@@ -24,7 +24,7 @@ if (process.env.BASE_URL)
     injection.bindFactory('defaultBaseUrl', process.env.BASE_URL);
 
 
-const adalmodule = require("./adal-auth-module/adal-auth-module.js");
+const adalmodule = require("@unclepaul/allcount-adal-auth-module");
 
 adalmodule.installModule(injection);
 
