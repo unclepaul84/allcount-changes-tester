@@ -3,7 +3,7 @@
 const EventHubClient = require('azure-event-hubs').Client;
 const _ = require('underscore');
 
-module.exports = function (Q, storageDriver, entityDescriptionService, baseUrlService) {
+module.exports = function (Q, storageDriver, entityDescriptionService, baseUrlService, injection) {
 
     return {
 
@@ -39,43 +39,52 @@ module.exports = function (Q, storageDriver, entityDescriptionService, baseUrlSe
 
                         sender = tx;
 
+                        injection.bindFactory('AzureEventHubPublisher', {
+                            publish: function (payload) {
+
+                                var envelope = { sender: baseUrlService.getBaseUrl(), actionTime: new Date().toISOString(), payload: payload };
+
+                                tx.send(envelope, null);
+                            }
+                        });
+
                     }).catch((x) => {
                         console.error("Error setting up azure-event-hubs-publisher-service", x);
                     });
 
+                if (self.evtHubsCfg.autoPublishCrudActions) {
+                    _.forEach(entityDescriptionService.entityDescriptions, function (entityDescriptor, entityTypeId) {
 
-                _.forEach(entityDescriptionService.entityDescriptions, function (entityDescriptor, entityTypeId) {
+                        if (self.evtHubsCfg.entityTypeIdIncludeFilter) {
+                            var fRx = new RegExp(self.evtHubsCfg.autoPublishCrudActionsEntityIncludeFilter);
 
-                    if (self.evtHubsCfg.entityTypeIdIncludeFilter) {
-                        var fRx = new RegExp(self.evtHubsCfg.entityTypeIdIncludeFilter);
+                            if (!fRx.test(entityTypeId))
+                                return;
+                        }
 
-                        if (!fRx.test(entityTypeId))
-                            return;
-                    }
+                        var tableDescriptor = entityDescriptionService.tableDescription(entityTypeId);
 
-                    var tableDescriptor = entityDescriptionService.tableDescription(entityTypeId);
+                        var handler = function (oldEntity, newEntity) {
 
-                    var handler = function (oldEntity, newEntity) {
+                            const lEntityTypeId = entityTypeId;
 
-                        const lEntityTypeId = entityTypeId;
+                            const lTableDescriptor = tableDescriptor;
 
-                        const lTableDescriptor = tableDescriptor;
+                            buildJsonPayload(lEntityTypeId, lTableDescriptor, oldEntity, newEntity).then(x => {
 
-                        buildJsonPayload(lEntityTypeId, lTableDescriptor, oldEntity, newEntity).then(x => {
+                                if (sender)
+                                    sender.send(x, null).catch(x => { console.error("Error sending to azure-event-hubs-publisher-service", x) });
 
-                            if (sender)
-                                sender.send(x, null).catch(x => { console.error("Error sending to azure-event-hubs-publisher-service", x) });
+                            }).catch(x => console.warn(x));
 
-                        }).catch(x => console.warn(x));
+                        };
 
-                    };
+                        handler.handlerTitle = "azure-event-hubs-publisher-service";
 
-                    handler.handlerTitle = "azure-event-hubs-publisher-service";
+                        storageDriver.addAfterCrudListener(tableDescriptor, handler);
 
-                    storageDriver.addAfterCrudListener(tableDescriptor, handler);
-
-                });
-
+                    });
+                }
 
                 function buildJsonPayload(entityTypeId, tableDescriptor, oldEntity, newEntity) {
 
