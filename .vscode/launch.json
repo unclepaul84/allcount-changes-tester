@@ -1,26 +1,18 @@
 {
         "version": "0.2.0",
-        "compounds": [
-            {
-                "name": "Launch & Debug",
-                "configurations": [ "Launch Program", "Launch Chrome" ]
-            }
-        ],
+ 
         "configurations": [
         {
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceRoot}/server.js",
-            "env":{"NODE_ENV":"production"}
+            "env": {
+                "NODE_ENV": "production",
+                "PORT" : 9080,
+                "MONGO_DB_URL":"mongodb://pkallcounttester:UrhmV7OgZrZwNMhm7vGwtG7l9ipRYsPpERgXqCekKo7KfuTQXgvslnm9WU7pi9M8LaejjITNPL4ZWGOZjjZYdg==@pkallcounttester.documents.azure.com:10255/allcount?ssl=true&replicaSet=globaldb'",
+                "CONFIG_GIT_URL":"https://gist.github.com/90492c822dc2d7ed319cdcad9d255de3.git"
+            }
         }
-        ,
-        {
-            "name": "Launch Chrome",
-            "type": "chrome",
-            "request": "launch",
-            "url": "http://localhost:9080/",
-            "webRoot": "${workspaceRoot}"
-        }
-        ]
+      
     }
