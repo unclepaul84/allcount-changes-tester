@@ -10,8 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "@unclepaul/allcountjs": "latest",
-    "@unclepaul/allcount-adal-auth-module": "1.0.0",
-    "@unclepaul/allcount-azure-event-hubs-module": "1.0.0"
+    "@unclepaul/allcount-adal-auth-module": "latest",
+    "@unclepaul/allcount-azure-event-hubs-module": "latest"
   },
   "allcountjsModules": [
     "@unclepaul/allcount-adal-auth-module",
