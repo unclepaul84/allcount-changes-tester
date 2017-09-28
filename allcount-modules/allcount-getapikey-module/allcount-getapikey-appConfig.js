@@ -11,7 +11,7 @@ module.exports = function ( securityService, A) {
                         {
                             id: 'getAccessToken',
                             name: "Reveal API Key",
-                            perform: function (Actions) {
+                            perform: function (User, Actions) {
 
                                 return Actions.modalResult('API Key', securityService.generateToken(User));
                             },
