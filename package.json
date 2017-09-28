@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@unclepaul/allcountjs": "^1.34.0",
+    "@unclepaul/allcountjs": "^1.35.0",
     "@unclepaul/allcount-adal-auth-module": "^1.0.0",
     "@unclepaul/allcount-azure-event-hubs-module": "^1.0.3"
   },
