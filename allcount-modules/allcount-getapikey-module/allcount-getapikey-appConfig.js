@@ -10,8 +10,8 @@ module.exports = function ( securityService, A) {
                     actions: [
                         {
                             id: 'getAccessToken',
-                            name: "Get Access Token",
-                            perform: function (Crud, User, Actions, Security) {
+                            name: "Reveal API Key",
+                            perform: function (Actions) {
 
                                 return Actions.modalResult('API Key', securityService.generateToken(User));
                             },
