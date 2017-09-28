@@ -1,6 +1,6 @@
 const injection = require('@unclepaul/allcountjs');
 const fs = require('fs');
-
+const path = require('path');
 process.env['NODE_ENV'] = 'development'; //this is needed because of bug in asset minification. TODO: take out this line when minification bugs are fixed.
 
 const port = process.env.PORT || 9080;
@@ -25,6 +25,8 @@ if (fs.existsSync("package.json")) {
     injection.installModulesFromPackageJson("package.json");
 }
 
+InstallAllCountModulesFromCurrentWorkingDirectory(injection, 'allcount-modules');
+
 var server = injection.inject('allcountServerStartup');
 
 server.startup(function (errors) {
@@ -35,3 +37,32 @@ server.startup(function (errors) {
             throw new Error(errors);
     }
 });
+
+///TODO move into allcount package
+function InstallAllCountModulesFromCurrentWorkingDirectory(injection, localPackagesRootFolder) {
+   
+    const allCountNodesPath = path.join(process.cwd(), localPackagesRootFolder);
+
+    const items = fs.readdirSync(allCountNodesPath);
+
+    items.forEach(function (file) {
+
+        const subDir = path.join(allCountNodesPath, file);
+
+        const files = fs.readdirSync(subDir);
+
+        files.forEach((f) => {
+
+            const filePath = path.join(subDir, f);
+
+            if (filePath.endsWith('.js')) {
+                const module = require(filePath);
+                injection.installModule(module);
+
+            }
+
+        });
+
+    });
+
+}

@@ -16,6 +16,7 @@
   "allcountjsModules": [
     "@unclepaul/allcount-adal-auth-module",
     "@unclepaul/allcount-azure-event-hubs-module"
+    
   ],
   "engines": {
     "node": "^6.11.0"

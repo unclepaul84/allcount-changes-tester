@@ -10,7 +10,8 @@
                 "NODE_ENV": "production",
                 "PORT": 9080,
                 "MONGO_DB_URL": "mongodb://pkallcounttester:UrhmV7OgZrZwNMhm7vGwtG7l9ipRYsPpERgXqCekKo7KfuTQXgvslnm9WU7pi9M8LaejjITNPL4ZWGOZjjZYdg==@pkallcounttester.documents.azure.com:10255/allcount?ssl=true&replicaSet=globaldb'",
-                "CONFIG_GIT_URL": "C:/temp/node_projects/allcount-changes-tester-config"
+                "CONFIG_GIT_URL": "C:/temp/node_projects/allcount-changes-tester-config",
+                "HMAC_KEY": "ASLDFGOENEBPEIBP@)$*^TY(GN@LVKNVS}#WBV)_@}SDB"
             }
         }
     ]
