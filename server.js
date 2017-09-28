@@ -55,7 +55,7 @@ function InstallAllCountModulesFromCurrentWorkingDirectory(injection, localPacka
 
             const filePath = path.join(subDir, f);
 
-            if (filePath.endsWith('.js')) {
+            if (filePath.endsWith('module.js')) {
                 const module = require(filePath);
                 injection.installModule(module);
 
