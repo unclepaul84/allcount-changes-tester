@@ -9,15 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@unclepaul/allcountjs": "^1.35.0",
+    "@unclepaul/allcountjs": "^1.40.0",
     "@unclepaul/allcount-adal-auth-module": "^1.0.0",
     "@unclepaul/allcount-azure-event-hubs-module": "^1.0.3"
     
   },
   "allcountjsModules": [
-    "@unclepaul/allcount-adal-auth-module",
-    "@unclepaul/allcount-azure-event-hubs-module"
-    
+    "@unclepaul/allcount-adal-auth-module"
   ],
   "engines": {
     "node": "^6.11.0"
