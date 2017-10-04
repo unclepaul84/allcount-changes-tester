@@ -117,7 +117,9 @@ module.exports = function (Q, storageDriver, entityDescriptionService, baseUrlSe
 
                             publish();
 
-                        }).catch(x => deferred.reject(x));
+                            return Q(null);
+                            
+                        }).catch(x =>  console.warn(x));
                     }
                     else {
 
