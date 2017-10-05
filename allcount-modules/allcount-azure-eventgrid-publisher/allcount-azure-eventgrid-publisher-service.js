@@ -25,6 +25,26 @@ module.exports = function (Q, storageDriver, entityDescriptionService, baseUrlSe
                     console.warn("'key' is not configured!");
             }
 
+        
+            if(!self.evtHubsCfg)
+            {
+                const keyKey = "AZURE_EVENT_GRID_PUBLISHER_KEY";
+                const urlKey = "AZURE_EVENT_GRID_PUBLISHER_URL";
+                const autoPublishKey = "AZURE_EVENT_GRID_PUBLISHER_AUTO_PUBLISH";
+
+                if( process.env[urlKey] && process.env[keyKey])
+                {
+                    self.evtHubsCfg = {
+
+                        url:process.env[urlKey],
+                        key:process.env[keyKey],
+                        autoPublishCrudActions: process.env[autoPublishKey] == 'true'
+                    };
+
+                }
+
+            }
+
             if (self.evtHubsCfg) {
 
                 function publishToEventGrid(eventType, subject, data) {
@@ -58,12 +78,22 @@ module.exports = function (Q, storageDriver, entityDescriptionService, baseUrlSe
                 injection.bindFactory('AzureEventGridPublisher', {
                     publish: function (eventType, subject, payload) {
 
+                        if (eventType == null)
+                            throw new Error('must provide EventType');
+
+                        if (payload == null)
+                            throw new Error('must provide payload');
+
+
+                        if (subject == null)
+                            subject = baseUrlService.getBaseUrl();
+
                         publishToEventGrid(eventType, subject, payload);
                     }
                 });
 
 
-                if (self.evtHubsCfg.autoPublishCrudActions) {
+                if (self.evtHubsCfg.autoPublishCrudActions === true) {
                     _.forEach(entityDescriptionService.entityDescriptions, function (entityDescriptor, entityTypeId) {
 
                         if (entityDescriptor.tableDescription.tableName != entityDescriptor.tableDescription.entityTypeId)
@@ -98,7 +128,7 @@ module.exports = function (Q, storageDriver, entityDescriptionService, baseUrlSe
 
                 function buildJsonAndSendPayload(entityTypeId, tableDescriptor, oldEntity, newEntity) {
 
-                    let  actionType = 'update';
+                    let actionType = 'update';
 
                     if (oldEntity === null)
                         actionType = 'create';
@@ -118,22 +148,21 @@ module.exports = function (Q, storageDriver, entityDescriptionService, baseUrlSe
                             publish();
 
                             return Q(null);
-                            
-                        }).catch(x =>  console.warn(x));
+
+                        }).catch(x => console.warn(x));
                     }
                     else {
 
                         publish();
                     }
 
-                    function publish()
-                    {
+                    function publish() {
                         publishToEventGrid('entity_' + actionType, baseUrlService.getBaseUrl() + '/entity/' + tableDescriptor.tableName, entity);
-                        
+
                     }
 
                 }
-                
+
             }
         }
 

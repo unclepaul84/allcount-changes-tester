@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@unclepaul/allcountjs": "^1.40.0",
+    "@unclepaul/allcountjs": "^1.42.0",
     "@unclepaul/allcount-adal-auth-module": "^1.0.0"  
   },
   "allcountjsModules": [

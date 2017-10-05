@@ -11,7 +11,10 @@
                 "PORT": 9080,
                 "MONGO_DB_URL": "mongodb://webfrontend:mongo2day!@ds040027.mlab.com:40027/ftoptions-back-office",
                 "CONFIG_GIT_URL": "C:/temp/node_projects/allcount-changes-tester-config",
-                "HMAC_KEY": "ASLDFGOENEBPEIBP@)$*^TY(GN@LVKNVS}#WBV)_@}SDB"
+                "HMAC_KEY": "ASLDFGOENEBPEIBP@)$*^TY(GN@LVKNVS}#WBV)_@}SDB",
+                "AZURE_EVENT_GRID_PUBLISHER_KEY": "b86ljy9UZRVrZ/dlXbFExFPrZNa4B6+GyfwSprsS7nE=",
+                "AZURE_EVENT_GRID_PUBLISHER_URL": "https://ftbackofficeevents.westcentralus-1.eventgrid.azure.net/api/events",
+                "AZURE_EVENT_GRID_PUBLISHER_AUTO_PUBLISH": "true"
             }
         }
     ]
